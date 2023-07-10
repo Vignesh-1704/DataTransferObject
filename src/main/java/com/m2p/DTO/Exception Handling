@@ -1,0 +1,34 @@
+Service -> ThrowsException | SpringBoot Default Exception Handler -> Handles it and sends the response to client
+
+Default Exception(Format) provided by Spring boot
+  {
+    "timestamp" : "2023-12-IST10:29:55,
+    "status" : 500,
+    "error" : "Internal Server Error",
+    "path" :  "/api/users/10"
+  }
+
+
+Service -> Throws ResourceNotFoundException | GlobalExceptionHandler -> Handles it and sends the response back
+
+The Exception Format that we will provide using Exception handling is
+ {
+    "timestamp" : "2023-12-IST10:29:55,
+    "message" : "user not found with Id : '10' ",
+    "path" : "/api/users/10",
+    "errorCode" : "USER_NOT_FOUND"
+ }
+
+
+STEPS that will be involved in Exception Handling :
+    1. Create and Use ResourceNotFoundException (Custom Exception)
+    2. Create Error Details Class to hold the Custom Error Response (Custom Error Responses)
+    3. Create GlobalExceptionHandler to handle specific and global exceptions.
+
+
+@ExceptionHandler
+is a annotation that is used to handle the specific exceptions and sending custom responses to the client.
+
+@ControllerAdvice
+This Annotation is used when you have the plan of handling the exceptions using GlobalExceptionHandler
+(A Single File for handling Exceptions)

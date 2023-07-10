@@ -2,6 +2,7 @@ package com.m2p.DTO.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2p.DTO.dto.UserDto;
+import com.m2p.DTO.exception.ResourceNotFoundException;
 import com.m2p.DTO.mapper.AutoUserMapper;
 import com.m2p.DTO.mapper.UserMapper;
 import com.m2p.DTO.model.User;
@@ -49,8 +50,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.get();
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id",userId)
+        );
         //return UserMapper.mapToUserDTO(user);
         //return modelMapper.map(user, UserDto.class);
         return AutoUserMapper.MAPPER.mapToUserDto(user);
@@ -72,7 +74,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto user) {
-        User existingUser = userRepository.findById(user.getId()).get();
+        User existingUser = userRepository.findById(user.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("User","id", user.getId())
+        );
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
         existingUser.setEmail(user.getEmail());
@@ -83,6 +87,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(Long userId) {
+        userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id", userId)
+        );
         userRepository.deleteById(userId);
     }
 }

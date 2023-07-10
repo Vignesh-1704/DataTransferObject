@@ -1,6 +1,8 @@
 package com.m2p.DTO.controller;
 
 import com.m2p.DTO.dto.UserDto;
+import com.m2p.DTO.exception.ErrorDetails;
+import com.m2p.DTO.exception.ResourceNotFoundException;
 import com.m2p.DTO.mapper.UserMapper;
 import com.m2p.DTO.model.User;
 import com.m2p.DTO.service.UserService;
@@ -8,7 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -57,4 +61,17 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
+    //Handle the Specific Exception and Return a Custom Message
+
+//    @ExceptionHandler(ResourceNotFoundException.class)
+//    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
+//                                                                        WebRequest webRequest){
+//        ErrorDetails errorDetails = new ErrorDetails(
+//                LocalDateTime.now(),
+//                exception.getMessage(),
+//                webRequest.getDescription(false),
+//                "USER_NOT_FOUND"
+//        );
+//        return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
+//    }
 }
