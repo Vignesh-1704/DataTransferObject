@@ -2,6 +2,7 @@ package com.m2p.DTO.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.m2p.DTO.dto.UserDto;
+import com.m2p.DTO.exception.EmailAlreadyExistsException;
 import com.m2p.DTO.exception.ResourceNotFoundException;
 import com.m2p.DTO.mapper.AutoUserMapper;
 import com.m2p.DTO.mapper.UserMapper;
@@ -28,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
 
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+        if(optionalUser.isPresent())
+        {
+            throw new EmailAlreadyExistsException("Email Already Exists");
+        }
         //Convert the dto Received into a Entity
         // 1. Using UserMapper class
         //User user1 = UserMapper.mapToEntity(userDto);
