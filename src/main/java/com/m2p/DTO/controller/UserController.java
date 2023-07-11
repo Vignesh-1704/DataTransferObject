@@ -6,6 +6,7 @@ import com.m2p.DTO.exception.ResourceNotFoundException;
 import com.m2p.DTO.mapper.UserMapper;
 import com.m2p.DTO.model.User;
 import com.m2p.DTO.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UserController {
     // build create User REST API
     // http://localhost:8081/api/users/createUser
     @PostMapping("/createUser")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto user){
         UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -49,7 +50,7 @@ public class UserController {
     @PutMapping("{id}")
     // http://localhost:8081/api/users/1
     public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
-                                           @RequestBody UserDto user){
+                                           @Valid @RequestBody UserDto user){
         user.setId(userId);
         UserDto updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);

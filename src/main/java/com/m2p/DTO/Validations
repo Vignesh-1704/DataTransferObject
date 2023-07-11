@@ -1,0 +1,49 @@
+Validating REST API Requests is Common Requirement in Spring boot Applications.
+
+There are 2 ways of Validating Rest API Requests:
+1. Java Bean Validation API : (Just a Specification doesn't have the implementation)
+   Common Standard for Validating Java Projects
+2. Hibernate Validator :
+   Popular Implementation of Java Bean Validation
+
+
+@NotNull
+validates the annotated property is not Null.
+
+@Size
+validates the annotated property value has a size between min and max.
+Can be applied to String , Map , Collection, array properties
+
+@Min
+validates the annotated property has a value not smaller than the value attribute
+
+@Max
+validates the annotated property has a value not larger than the value attribute
+
+@Email
+validates the annotated property has a valid email address
+
+@NotEmpty
+validates that the property is not null or empty
+Can be applied to String, Map , Collection or Array Properties
+
+@NotBlank
+can be applied only to text values and validates the property is not null or whitespace
+
+
+We will be using hibernate Validator Which is a implementation of Java Bean Validation
+Adding Validation in spring boot is super easy
+
+ADD spring-boot-starter-validation dependency !
+
+
+Steps for Performing Spring Boot Validations:
+1. Add the Validation dependency(spring-starter-validation)
+2. Add Validation annotations to UserDTO
+3. Enable Validation using @Valid Annotation on CREATE & UPDATE REST API's
+4. Customize Validation Error Response and Send Back to Client.
+
+Inorder to customize the validation error response we need to extend the ResponseEntityExceptionHandler
+and use the handleMethodArgumentNotValid
+Have a hash map to store multiple errors in a object
+and return the error! and the messages will be mentioned inside the DTO class validation annotations.
