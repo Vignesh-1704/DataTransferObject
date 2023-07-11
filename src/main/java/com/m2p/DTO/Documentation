@@ -1,0 +1,30 @@
+Spring Boot Rest API Documentation using SpringDoc Open API
+
+springdoc-openapi -> Library helps to automate the generation of API Documentation using spring-boot projects.
+                     This Library provides the integration between spring-boot and swagger API
+
+Automatically generates Documentation in JSON,YML and HTML format API's
+Supports : OpenAPI3 , Swagger-ui , OAuth2 etc
+
+Development Steps for API Documentation:
+    1. Add springdoc-openapi Maven Dependency
+    2. Defining (General) API Information using Annotations
+    3. Customizing Swagger API(Rest API's) Documentation with Annotations
+    4. Customizing Swagger Model(Entity) Documentation with Annotations
+
+After adding the dependency do refresh maven to download the dependency
+And then access
+http://localhost:8081/swagger-ui/index.html
+(You can perform the REST API functionalities using this swagger UI)
+
+Now we can even change the General API Information present.
+Using @OpenApiDefinition Annotation in the main file:
+Mentioning : info -> @Info , contact -> @Contact , Licence -> @Licence , Externaldocs -> @ExternalDocs
+
+The next step is to add the details for every api in swapper ui.
+Go to Controller File -> UserController
+@Tag Annotation in the starting
+@Operation & @ApiResponse for every API
+
+The next step now is to add the details for Entity(UserDto)
+@Schema (general) & for every Entity Field
